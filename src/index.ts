@@ -118,7 +118,7 @@ async function initProject(path: string, name: string, port: number) {
         const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' });
         const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' });
-        const clusterTemplate = fs.readFileSync("./templates/clister.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);;
+        const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);;
 
         fs.writeFileSync(path + '/' + name + '/package.json', packageJsonTemplate);
         fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);

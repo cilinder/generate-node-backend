@@ -1,0 +1,25 @@
+import { Body, Controller, Get, Post, Request, Route, Tags } from "tsoa";
+import { Factory, Inject, Singleton } from "typescript-ioc";
+import { ${engineNameCapitalized} } from "../engines/${engineName}";
+
+@Route("api/${route}")
+@Singleton
+@Factory(() => new ${controllerName}())
+export class ${controllerName} extends Controller {
+  constructor() {
+    super();
+  }
+
+  @Inject
+  private ${engineName}!: ${engineNameCapitalized};
+
+  /**
+   * TODO
+   * @param request the express request
+   * @returns
+   */
+  @${type}("${name}")
+  public async ${name}(@Request() request: Request): Promise<any> {
+    return this.${engineName}.${name}();
+  }
+}

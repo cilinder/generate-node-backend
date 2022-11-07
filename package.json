@@ -1,0 +1,29 @@
+{
+  "name": "generate-node-project",
+  "version": "0.1.0",
+  "description": "Project to generate a backend nodejs project template",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "test",
+    "build": "npx tsc",
+    "init": "npm run build && node build/index.js init",
+    "generate-test-route": "npm run build && node build/index.js generate-route --name=test --route=test",
+    "generate-route": "npm run build && node build/index.js generate-route"
+  },
+  "keywords": [
+    "generate",
+    "nodejs",
+    "template"
+  ],
+  "author": "Jure Taslak",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/yargs": "^17.0.13",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "simple-git": "^3.14.1",
+    "yargs": "^17.6.2"
+  }
+}

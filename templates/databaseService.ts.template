@@ -1,0 +1,18 @@
+import { PrismaClient } from "@prisma/client";
+import { Factory, Singleton } from "typescript-ioc";
+
+@Singleton
+@Factory(() => new DatabaseService())
+export class DatabaseService {
+  private _prisma: PrismaClient | null = null;
+
+  public constructor() {
+    console.log("DATABASE SERVICE");
+    this._prisma = new PrismaClient();
+  }
+
+  public get prisma() {
+    if (this._prisma) return this._prisma;
+    else throw new Error("Prisma client is null");
+  }
+}

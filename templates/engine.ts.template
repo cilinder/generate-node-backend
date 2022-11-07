@@ -1,0 +1,14 @@
+import { Factory, Singleton, Inject } from "typescript-ioc";
+import { DatabaseService } from "../services/databaseService";
+
+@Singleton
+@Factory(() => new ${engineName}())
+export class ${engineName} {
+  @Inject
+  private databaseService!: DatabaseService;
+
+  public async ${name}() {
+    // TODO
+    return "${engineName} Works";
+  }
+}

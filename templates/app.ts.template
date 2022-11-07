@@ -1,0 +1,45 @@
+import express, { Express, Response as ExResponse } from "express";
+import bodyParser from "body-parser";
+import helmet from "helmet";
+import compression from "compression";
+import dotenv from "dotenv";
+import { RegisterRoutes } from "../build/routes";
+import swaggerJson from "../static/swagger.json";
+import swaggerUi from "swagger-ui-express";
+import cors from "cors";
+
+dotenv.config();
+
+export const app = express();
+
+app.use(helmet());
+app.use(compression()); // Compress all routes
+
+// Use body parser to read sent json payloads
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
+app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
+
+RegisterRoutes(app);
+
+// Serve swagger
+app.use(["/docs"], swaggerUi.serve, swaggerUi.setup(swaggerJson));
+app.use("/static", express.static("static"));
+
+const PORT = process.env.PORT || ${port};
+
+app.listen(PORT, () => console.log(`app listening at http://localhost:${PORT}`));
+
+app.use(function notFoundHandler(_req, res: ExResponse) {
+  res.status(404).send({
+    message: "Not Found",
+  });
+});

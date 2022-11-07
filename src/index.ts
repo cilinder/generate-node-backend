@@ -117,7 +117,8 @@ async function initProject(path: string, name: string, port: number) {
         const envTemplate = fs.readFileSync("./templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' });
         const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' });
+        // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' });
+        const clusterTemplate = fs.readFileSync("./templates/clister.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);;
 
         fs.writeFileSync(path + '/' + name + '/package.json', packageJsonTemplate);
         fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
@@ -128,7 +129,8 @@ async function initProject(path: string, name: string, port: number) {
         fs.writeFileSync(path + '/' + name + '/.env', envTemplate);
         fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
         fs.writeFileSync(path + '/' + name + 'README.md', readmeTemplate);
-        fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
+        // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
+        fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);        
 
         fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
 

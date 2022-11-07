@@ -1,0 +1,10 @@
+{
+    "apps" : [{
+        "name": "${name}",
+        "script": "dist/src/app.js",
+        "instances": 1,
+        "env": {
+            "PORT": ${port}
+        }
+    }]
+}

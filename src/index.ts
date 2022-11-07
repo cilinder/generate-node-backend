@@ -128,7 +128,7 @@ async function initProject(path: string, name: string, port: number) {
         fs.writeFileSync(path + '/' + name + '/prisma/schema.prisma', prismaTemplate);
         fs.writeFileSync(path + '/' + name + '/.env', envTemplate);
         fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
-        fs.writeFileSync(path + '/' + name + 'README.md', readmeTemplate);
+        fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
         // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
         fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);        
 

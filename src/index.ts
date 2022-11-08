@@ -115,7 +115,11 @@ async function initProject(path: string, name: string, port: number) {
         const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);;
+        const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintrcTemplate = fs.readFileSync("./templates/.eslintrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierrcTemplate = fs.readFileSync("./templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintignoreTemplate = fs.readFileSync("./templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierignoreTemplate = fs.readFileSync("./templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
 
         fs.writeFileSync(path + '/' + name + '/package.json', packageJsonTemplate);
         fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
@@ -128,6 +132,10 @@ async function initProject(path: string, name: string, port: number) {
         fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
         // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
         fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
+        fs.writeFileSync(path + '/' + name + '/.eslintrc.json', eslintrcTemplate);
+        fs.writeFileSync(path + '/' + name + '/.prettierrc.json', prettierrcTemplate);
+        fs.writeFileSync(path + '/' + name + '/.eslintignore', eslintignoreTemplate);
+        fs.writeFileSync(path + '/' + name + '/.prettierignore.json', prettierignoreTemplate);
 
         fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
 

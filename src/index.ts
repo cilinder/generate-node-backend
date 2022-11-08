@@ -54,17 +54,17 @@ if (argv._[0] === "init") {
 
 function createFolderStructure(path: string, name: string) {
     try {
-        fs.mkdirSync(path + '/' + name + '/src');
-        fs.mkdirSync(path + '/' + name + '/src/constants');
-        fs.mkdirSync(path + '/' + name + '/src/controllers');
-        fs.mkdirSync(path + '/' + name + '/src/engines');
-        fs.mkdirSync(path + '/' + name + '/src/services');
-        fs.mkdirSync(path + '/' + name + '/src/types');
-        fs.mkdirSync(path + '/' + name + '/build');
-        fs.mkdirSync(path + '/' + name + '/dist');
-        fs.mkdirSync(path + '/' + name + '/scripts');
-        fs.mkdirSync(path + '/' + name + '/static');
-        fs.mkdirSync(path + '/' + name + '/prisma');
+        fs.mkdirSync(path + '/src');
+        fs.mkdirSync(path + '/src/constants');
+        fs.mkdirSync(path + '/src/controllers');
+        fs.mkdirSync(path + '/src/engines');
+        fs.mkdirSync(path + '/src/services');
+        fs.mkdirSync(path + '/src/types');
+        fs.mkdirSync(path + '/build');
+        fs.mkdirSync(path + '/dist');
+        fs.mkdirSync(path + '/scripts');
+        fs.mkdirSync(path + '/static');
+        fs.mkdirSync(path + '/prisma');
     } catch (e) {
         console.error(e);
     }
@@ -86,7 +86,7 @@ async function initProject() {
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
+        // fs.writeFileSync(path + '/.gitignore', gitignoreTemplate);
 
         packageJson.scripts = {
             "build": "rimraf dist/* && tsoa spec-and-routes && tsc",
@@ -136,6 +136,8 @@ async function initProject() {
             "prisma": "^4.5.0",
             "rimraf": "^3.0.2"
         };
+        fs.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
+
         const childInstall = spawn('npm', ['install']);
 
         // const childPrismaClinet = spawn('npm', ['install', 'prisma']);
@@ -185,21 +187,21 @@ async function initProject() {
         const eslintignoreTemplate = fs.readFileSync("./templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const prettierignoreTemplate = fs.readFileSync("./templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
 
-        fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
-        fs.writeFileSync(path + '/' + name + '/tsoa.json', tsoaTemplate);
-        fs.writeFileSync(path + '/' + name + '/src/app.ts', appTemplate);
-        fs.writeFileSync(path + '/' + name + '/src/ioc.ts', iocTemplate);
-        fs.writeFileSync(path + '/' + name + '/prisma/schema.prisma', prismaTemplate);
-        fs.writeFileSync(path + '/' + name + '/.env', envTemplate);
-        fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
-        fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
-        fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
-        fs.writeFileSync(path + '/' + name + '/.eslintrc.json', eslintrcTemplate);
-        fs.writeFileSync(path + '/' + name + '/.prettierrc.json', prettierrcTemplate);
-        fs.writeFileSync(path + '/' + name + '/.eslintignore', eslintignoreTemplate);
-        fs.writeFileSync(path + '/' + name + '/.prettierignore.json', prettierignoreTemplate);
+        fs.writeFileSync(path + '/tsconfig.json', tsconfigTemplate);
+        fs.writeFileSync(path + '/tsoa.json', tsoaTemplate);
+        fs.writeFileSync(path + '/src/app.ts', appTemplate);
+        fs.writeFileSync(path + '/src/ioc.ts', iocTemplate);
+        fs.writeFileSync(path + '/prisma/schema.prisma', prismaTemplate);
+        fs.writeFileSync(path + '/.env', envTemplate);
+        fs.writeFileSync(path + '/src/services/databaseService.ts', databaseServiceTemplate);
+        fs.writeFileSync(path + '/README.md', readmeTemplate);
+        fs.writeFileSync(path + '/cluster.json', clusterTemplate);
+        fs.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
+        fs.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
+        fs.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
+        fs.writeFileSync(path + '/.prettierignore.json', prettierignoreTemplate);
 
-        fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
+        fs.openSync(path + '/prisma/dev.db', 'w');
 
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);

@@ -52,17 +52,17 @@ else if (argv._[0] === "generate-route") {
 }
 function createFolderStructure(path, name) {
     try {
-        fs_1.default.mkdirSync(path + '/' + name + '/src');
-        fs_1.default.mkdirSync(path + '/' + name + '/src/constants');
-        fs_1.default.mkdirSync(path + '/' + name + '/src/controllers');
-        fs_1.default.mkdirSync(path + '/' + name + '/src/engines');
-        fs_1.default.mkdirSync(path + '/' + name + '/src/services');
-        fs_1.default.mkdirSync(path + '/' + name + '/src/types');
-        fs_1.default.mkdirSync(path + '/' + name + '/build');
-        fs_1.default.mkdirSync(path + '/' + name + '/dist');
-        fs_1.default.mkdirSync(path + '/' + name + '/scripts');
-        fs_1.default.mkdirSync(path + '/' + name + '/static');
-        fs_1.default.mkdirSync(path + '/' + name + '/prisma');
+        fs_1.default.mkdirSync(path + '/src');
+        fs_1.default.mkdirSync(path + '/src/constants');
+        fs_1.default.mkdirSync(path + '/src/controllers');
+        fs_1.default.mkdirSync(path + '/src/engines');
+        fs_1.default.mkdirSync(path + '/src/services');
+        fs_1.default.mkdirSync(path + '/src/types');
+        fs_1.default.mkdirSync(path + '/build');
+        fs_1.default.mkdirSync(path + '/dist');
+        fs_1.default.mkdirSync(path + '/scripts');
+        fs_1.default.mkdirSync(path + '/static');
+        fs_1.default.mkdirSync(path + '/prisma');
     }
     catch (e) {
         console.error(e);
@@ -83,7 +83,7 @@ async function initProject() {
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
+        // fs.writeFileSync(path + '/.gitignore', gitignoreTemplate);
         packageJson.scripts = {
             "build": "rimraf dist/* && tsoa spec-and-routes && tsc",
             "dev": "npm run build && nodemon src/app.ts",
@@ -132,6 +132,7 @@ async function initProject() {
             "prisma": "^4.5.0",
             "rimraf": "^3.0.2"
         };
+        fs_1.default.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
         const childInstall = (0, child_process_1.spawn)('npm', ['install']);
         // const childPrismaClinet = spawn('npm', ['install', 'prisma']);
         // const childCompression = spawn('npm', ['install', 'compression']);
@@ -176,20 +177,20 @@ async function initProject() {
         const prettierrcTemplate = fs_1.default.readFileSync("./templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const eslintignoreTemplate = fs_1.default.readFileSync("./templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const prettierignoreTemplate = fs_1.default.readFileSync("./templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        fs_1.default.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/tsoa.json', tsoaTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/src/app.ts', appTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/src/ioc.ts', iocTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/prisma/schema.prisma', prismaTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/.env', envTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/.eslintrc.json', eslintrcTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/.prettierrc.json', prettierrcTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/.eslintignore', eslintignoreTemplate);
-        fs_1.default.writeFileSync(path + '/' + name + '/.prettierignore.json', prettierignoreTemplate);
-        fs_1.default.openSync(path + '/' + name + '/prisma/dev.db', 'w');
+        fs_1.default.writeFileSync(path + '/tsconfig.json', tsconfigTemplate);
+        fs_1.default.writeFileSync(path + '/tsoa.json', tsoaTemplate);
+        fs_1.default.writeFileSync(path + '/src/app.ts', appTemplate);
+        fs_1.default.writeFileSync(path + '/src/ioc.ts', iocTemplate);
+        fs_1.default.writeFileSync(path + '/prisma/schema.prisma', prismaTemplate);
+        fs_1.default.writeFileSync(path + '/.env', envTemplate);
+        fs_1.default.writeFileSync(path + '/src/services/databaseService.ts', databaseServiceTemplate);
+        fs_1.default.writeFileSync(path + '/README.md', readmeTemplate);
+        fs_1.default.writeFileSync(path + '/cluster.json', clusterTemplate);
+        fs_1.default.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
+        fs_1.default.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
+        fs_1.default.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
+        fs_1.default.writeFileSync(path + '/.prettierignore.json', prettierignoreTemplate);
+        fs_1.default.openSync(path + '/prisma/dev.db', 'w');
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
         // await git.commit(`Initializing project ${name}.\n\nUsing nodejs + express + tsoa + prisma`);

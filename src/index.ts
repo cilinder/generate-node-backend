@@ -4,6 +4,8 @@ import { exit } from "process";
 import readline from "readline";
 import { spawn } from 'child_process';
 import os from 'os';
+
+
 import yargs from 'yargs';
 import SimpleGit from 'simple-git';
 
@@ -84,46 +86,75 @@ async function initProject() {
         }
         const packageJson = JSON.parse(fs.readFileSync(path + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
-
-        // createFolderStructure(path, name);
+        createFolderStructure(path, name);
+        
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
-        // const replaceName = new RegExp(/\$\{name\}/, 'g');
-        // const replacePort = new RegExp(/\$\{port\}/, 'g');
+        // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
 
-        // const packageJsonTemplate = fs.readFileSync("./templates/package.json.template", { encoding: 'utf8' }).replaceAll(replaceName, name);
-        // const tsconfigTemplate = fs.readFileSync("./templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const tsoaTemplate = fs.readFileSync("./templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const appTemplate = fs.readFileSync("./templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const iocTemplate = fs.readFileSync("./templates/ioc.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const prismaTemplate = fs.readFileSync("./templates/schema.prisma.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const envTemplate = fs.readFileSync("./templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // const eslintrcTemplate = fs.readFileSync("./templates/.eslintrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // const prettierrcTemplate = fs.readFileSync("./templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // const eslintignoreTemplate = fs.readFileSync("./templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // const prettierignoreTemplate = fs.readFileSync("./templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const childPrismaClinet = spawn('npm', ['install', 'prisma']);
+        const childCompression = spawn('npm', ['install', 'compression']);
+        const childCors = spawn('npm', ['install', 'cors']);
+        const childDotenv = spawn('npm', ['install', 'dotenv']);
+        const childEsm = spawn('npm', ['install', 'esm']);
+        const childExpress = spawn('npm', ['install', 'express']);
+        const childHelmet = spawn('npm', ['install', 'helmet']);
+        const childNodemon = spawn('npm', ['install', 'nodemon']);
+        const childPm2 = spawn('npm', ['install', 'pm2']);
+        const childRxjs = spawn('npm', ['install', 'rxjs']);
+        const childSwaggerUI = spawn('npm', ['install', 'swagger-ui-express']);
+        const childTsNode = spawn('npm', ['install', 'ts-node']);
+        const childTsoa = spawn('npm', ['install', 'tsoa']);
+        const childTypescript = spawn('npm', ['install', 'typescript']);
+        const childTypescriptIoc = spawn('npm', ['install', 'typescript-ioc']);
 
-        // fs.writeFileSync(path + '/' + name + '/package.json', packageJsonTemplate);
-        // fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
-        // fs.writeFileSync(path + '/' + name + '/tsoa.json', tsoaTemplate);
-        // fs.writeFileSync(path + '/' + name + '/src/app.ts', appTemplate);
-        // fs.writeFileSync(path + '/' + name + '/src/ioc.ts', iocTemplate);
-        // fs.writeFileSync(path + '/' + name + '/prisma/schema.prisma', prismaTemplate);
-        // fs.writeFileSync(path + '/' + name + '/.env', envTemplate);
-        // fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
-        // fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
-        // // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
-        // fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
-        // fs.writeFileSync(path + '/' + name + '/.eslintrc.json', eslintrcTemplate);
-        // fs.writeFileSync(path + '/' + name + '/.prettierrc.json', prettierrcTemplate);
-        // fs.writeFileSync(path + '/' + name + '/.eslintignore', eslintignoreTemplate);
-        // fs.writeFileSync(path + '/' + name + '/.prettierignore.json', prettierignoreTemplate);
+        const childTypesCompression = spawn('npm', ['install', '--save-dev', '@types/compression']);
+        const childTypesCors = spawn('npm', ['install', '--save-dev', '@types/cors']);
+        const childTypesExpress = spawn('npm', ['install', '--save-dev', '@types/express']);
+        const childTypesNode = spawn('npm', ['install', '--save-dev', '@types/node']);
+        const childTypesSwaggerUI = spawn('npm', ['install', '--save-dev', '@types/swagger-ui-express']);
+        const childTypescriptEslintPlugin = spawn('npm', ['install', '--save-dev', '@typescript-eslint/eslint-plugin']);
+        const childTypescriptEslintParser = spawn('npm', ['install', '--save-dev', '@typescript-eslint/parser']);
+        const childEslint = spawn('npm', ['install', '--save-dev', 'eslint']);
+        const childEslintConfigPrettier = spawn('npm', ['install', '--save-dev', 'eslint-config-prettier']);
+        const childEslintPluginPrettier = spawn('npm', ['install', '--save-dev', 'eslint-plugin-prettier']);
+        const childPrettier = spawn('npm', ['install', '--save-dev', 'prettier']);
+        const childPrisma = spawn('npm', ['install', '--save-dev', 'prisma']);
+        const childRimraf = spawn('npm', ['install', '--save-dev', 'rimraf']);
 
-        // fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
+        const replaceName = new RegExp(/\$\{name\}/, 'g');
+        const replacePort = new RegExp(/\$\{port\}/, 'g');
+
+        const tsconfigTemplate = fs.readFileSync("./templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const tsoaTemplate = fs.readFileSync("./templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const appTemplate = fs.readFileSync("./templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const iocTemplate = fs.readFileSync("./templates/ioc.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const prismaTemplate = fs.readFileSync("./templates/schema.prisma.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const envTemplate = fs.readFileSync("./templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintrcTemplate = fs.readFileSync("./templates/.eslintrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierrcTemplate = fs.readFileSync("./templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintignoreTemplate = fs.readFileSync("./templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierignoreTemplate = fs.readFileSync("./templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+
+        fs.writeFileSync(path + '/' + name + '/tsconfig.json', tsconfigTemplate);
+        fs.writeFileSync(path + '/' + name + '/tsoa.json', tsoaTemplate);
+        fs.writeFileSync(path + '/' + name + '/src/app.ts', appTemplate);
+        fs.writeFileSync(path + '/' + name + '/src/ioc.ts', iocTemplate);
+        fs.writeFileSync(path + '/' + name + '/prisma/schema.prisma', prismaTemplate);
+        fs.writeFileSync(path + '/' + name + '/.env', envTemplate);
+        fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
+        fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
+        fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
+        fs.writeFileSync(path + '/' + name + '/.eslintrc.json', eslintrcTemplate);
+        fs.writeFileSync(path + '/' + name + '/.prettierrc.json', prettierrcTemplate);
+        fs.writeFileSync(path + '/' + name + '/.eslintignore', eslintignoreTemplate);
+        fs.writeFileSync(path + '/' + name + '/.prettierignore.json', prettierignoreTemplate);
+
+        fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
 
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);

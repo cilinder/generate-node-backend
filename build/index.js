@@ -84,6 +84,9 @@ async function initProject() {
         // await git.init();
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         // fs.writeFileSync(path + '/.gitignore', gitignoreTemplate);
+        if (packageJson["scripts"] === undefined) {
+            packageJson["scripts"] = {};
+        }
         packageJson.scripts["build"] = "rimraf dist/* && tsoa spec-and-routes && tsc";
         packageJson.scripts["dev"] = "npm run build && nodemon src/app.ts";
         packageJson.scripts["tsoa-gen"] = "tsoa routes && tsoa swagger";
@@ -98,6 +101,9 @@ async function initProject() {
         packageJson.scripts["monit"] = "pm2 monit";
         packageJson.scripts["update-db-schema"] = "npx prisma db push && npx prisma generate";
         packageJson.main = "src/app.ts";
+        if (packageJson["dependencies"] === undefined) {
+            packageJson["dependencies"] = {};
+        }
         packageJson.dependencies["@prisma/client"] = "^4.5.0";
         packageJson.dependencies["compression"] = "^1.7.4";
         packageJson.dependencies["cors"] = "^2.8.5";
@@ -113,6 +119,9 @@ async function initProject() {
         packageJson.dependencies["tsoa"] = "^4.1.2";
         packageJson.dependencies["typescript"] = "^4.8.3";
         packageJson.dependencies["typescript-ioc"] = "^3.2.2";
+        if (packageJson["devDependencies"] === undefined) {
+            packageJson["devDependencies"] = {};
+        }
         packageJson.devDependencies["@types/compression"] = "^1.7.2";
         packageJson.devDependencies["@types/cors"] = "^2.8.12";
         packageJson.devDependencies["@types/express"] = "^4.17.14";

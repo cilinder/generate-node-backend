@@ -140,7 +140,7 @@ async function initProject() {
         packageJson.devDependencies["rimraf"] = "^3.0.2";
         
         fs.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
-        console.log("npm install ....");
+        console.log("Installing dependencies ....");
         const childInstall = spawnSync('npm', ['install']);
 
         const replaceName = new RegExp(/\$\{name\}/, 'g');
@@ -199,7 +199,7 @@ function generateApiRoute(projectPath: string, name: string, route: string, type
         const controllerName = `${route}Controller`;
         const engineName = `${route}Engine`;
 
-        const controllerTemplate = fs.readFileSync("./templates/controller.ts.template", { encoding: 'utf8' })
+        const controllerTemplate = fs.readFileSync(__dirname + "/../templates/controller.ts.template", { encoding: 'utf8' })
             .replaceAll(replaceName, name)
             .replaceAll(replaceRoute, route)
             .replaceAll(replaceControllerName, capitalize(controllerName))
@@ -207,7 +207,7 @@ function generateApiRoute(projectPath: string, name: string, route: string, type
             .replaceAll(replaceEngineNameCapitalized, capitalize(engineName))
             .replaceAll(replaceType, type);
 
-        const engineTemplate = fs.readFileSync("./templates/engine.ts.template", { encoding: 'utf8' })
+        const engineTemplate = fs.readFileSync(__dirname + "/../templates/engine.ts.template", { encoding: 'utf8' })
             .replaceAll(replaceName, name)    
             .replaceAll(replaceEngineName, capitalize(engineName));
 

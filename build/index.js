@@ -135,7 +135,7 @@ async function initProject() {
         packageJson.devDependencies["prisma"] = "^4.5.0";
         packageJson.devDependencies["rimraf"] = "^3.0.2";
         fs_1.default.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
-        console.log("npm install ....");
+        console.log("Installing dependencies ....");
         const childInstall = (0, child_process_1.spawnSync)('npm', ['install']);
         const replaceName = new RegExp(/\$\{name\}/, 'g');
         const replacePort = new RegExp(/\$\{port\}/, 'g');
@@ -185,14 +185,14 @@ function generateApiRoute(projectPath, name, route, type) {
         const replaceType = RegExp(/\$\{type\}/, 'g');
         const controllerName = `${route}Controller`;
         const engineName = `${route}Engine`;
-        const controllerTemplate = fs_1.default.readFileSync("./templates/controller.ts.template", { encoding: 'utf8' })
+        const controllerTemplate = fs_1.default.readFileSync(__dirname + "/../templates/controller.ts.template", { encoding: 'utf8' })
             .replaceAll(replaceName, name)
             .replaceAll(replaceRoute, route)
             .replaceAll(replaceControllerName, capitalize(controllerName))
             .replaceAll(replaceEngineName, engineName)
             .replaceAll(replaceEngineNameCapitalized, capitalize(engineName))
             .replaceAll(replaceType, type);
-        const engineTemplate = fs_1.default.readFileSync("./templates/engine.ts.template", { encoding: 'utf8' })
+        const engineTemplate = fs_1.default.readFileSync(__dirname + "/../templates/engine.ts.template", { encoding: 'utf8' })
             .replaceAll(replaceName, name)
             .replaceAll(replaceEngineName, capitalize(engineName));
         fs_1.default.writeFileSync(projectPath + '/src/controllers/' + controllerName + '.ts', controllerTemplate);

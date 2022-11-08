@@ -78,7 +78,6 @@ async function initProject() {
         }
         const packageJson = JSON.parse(fs_1.default.readFileSync(path + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
-        console.log(path, name);
         createFolderStructure(path, name);
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
@@ -137,38 +136,9 @@ async function initProject() {
         packageJson.devDependencies["rimraf"] = "^3.0.2";
         fs_1.default.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
         console.log("npm install ....");
-        const childInstall = (0, child_process_1.spawn)('npm', ['install']);
-        // const childPrismaClinet = spawn('npm', ['install', 'prisma']);
-        // const childCompression = spawn('npm', ['install', 'compression']);
-        // const childCors = spawn('npm', ['install', 'cors']);
-        // const childDotenv = spawn('npm', ['install', 'dotenv']);
-        // const childEsm = spawn('npm', ['install', 'esm']);
-        // const childExpress = spawn('npm', ['install', 'express']);
-        // const childHelmet = spawn('npm', ['install', 'helmet']);
-        // const childNodemon = spawn('npm', ['install', 'nodemon']);
-        // const childPm2 = spawn('npm', ['install', 'pm2']);
-        // const childRxjs = spawn('npm', ['install', 'rxjs']);
-        // const childSwaggerUI = spawn('npm', ['install', 'swagger-ui-express']);
-        // const childTsNode = spawn('npm', ['install', 'ts-node']);
-        // const childTsoa = spawn('npm', ['install', 'tsoa']);
-        // const childTypescript = spawn('npm', ['install', 'typescript']);
-        // const childTypescriptIoc = spawn('npm', ['install', 'typescript-ioc']);
-        // const childTypesCompression = spawn('npm', ['install', '--save-dev', '@types/compression']);
-        // const childTypesCors = spawn('npm', ['install', '--save-dev', '@types/cors']);
-        // const childTypesExpress = spawn('npm', ['install', '--save-dev', '@types/express']);
-        // const childTypesNode = spawn('npm', ['install', '--save-dev', '@types/node']);
-        // const childTypesSwaggerUI = spawn('npm', ['install', '--save-dev', '@types/swagger-ui-express']);
-        // const childTypescriptEslintPlugin = spawn('npm', ['install', '--save-dev', '@typescript-eslint/eslint-plugin']);
-        // const childTypescriptEslintParser = spawn('npm', ['install', '--save-dev', '@typescript-eslint/parser']);
-        // const childEslint = spawn('npm', ['install', '--save-dev', 'eslint']);
-        // const childEslintConfigPrettier = spawn('npm', ['install', '--save-dev', 'eslint-config-prettier']);
-        // const childEslintPluginPrettier = spawn('npm', ['install', '--save-dev', 'eslint-plugin-prettier']);
-        // const childPrettier = spawn('npm', ['install', '--save-dev', 'prettier']);
-        // const childPrisma = spawn('npm', ['install', '--save-dev', 'prisma']);
-        // const childRimraf = spawn('npm', ['install', '--save-dev', 'rimraf']);
+        const childInstall = (0, child_process_1.spawnSync)('npm', ['install']);
         const replaceName = new RegExp(/\$\{name\}/, 'g');
         const replacePort = new RegExp(/\$\{port\}/, 'g');
-        console.log(__dirname);
         const tsconfigTemplate = fs_1.default.readFileSync(__dirname + "/../templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const tsoaTemplate = fs_1.default.readFileSync(__dirname + "/../templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const appTemplate = fs_1.default.readFileSync(__dirname + "/../templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
@@ -194,7 +164,7 @@ async function initProject() {
         fs_1.default.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
         fs_1.default.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
         fs_1.default.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
-        fs_1.default.writeFileSync(path + '/.prettierignore.json', prettierignoreTemplate);
+        fs_1.default.writeFileSync(path + '/.prettierignore', prettierignoreTemplate);
         fs_1.default.openSync(path + '/prisma/dev.db', 'w');
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);

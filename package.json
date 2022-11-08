@@ -4,7 +4,7 @@
   "description": "Project to generate a backend nodejs project template",
   "main": "src/index.ts",
   "bin": {
-    "generate-node-backend": "./build/index.js"
+    "generate-node-backend": "./bin/generate-node-backend"
   },
   "scripts": {
     "test": "test",

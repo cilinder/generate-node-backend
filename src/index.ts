@@ -80,6 +80,7 @@ async function initProject() {
         }
         const packageJson = JSON.parse(fs.readFileSync(path + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
+        console.log(path, name);
         createFolderStructure(path, name);
         
         // const git = SimpleGit(path + '/' + name);

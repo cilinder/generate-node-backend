@@ -10,36 +10,37 @@ import yargs from 'yargs';
 import SimpleGit from 'simple-git';
 
 const argv = yargs
-  .option('name', {
-      description: 'The name',
-      alias: 'n',
-      type: 'string'
-  })
-  .option('route', {
-    alias: 'r',
-    description: 'The API route to be generated',
-    type: 'string'
-  })
-  .option('type', {
-    alias: 't',
-    description: 'Get or Post requst',
-    type: 'string'
-  })
-  .option('path', {
-    alias: 'p',
-    description: 'The project path',
-    type: 'string'
-  })
-  .help()
-  .alias('help', 'h')
-  .parseSync();
+    .option("name", {
+        description: "The name",
+        alias: "n",
+        type: "string",
+    })
+    .option("route", {
+        alias: "r",
+        description: "The API route to be generated",
+        type: "string",
+    })
+    .option("type", {
+        alias: "t",
+        description: "Get or Post requst",
+        type: "string",
+    })
+    .help()
+    .alias("help", "h")
+    .parseSync();
+
+const projectPath = process.cwd();
+if (!fs.existsSync(projectPath + '/package.json')) {
+    console.error("package.json file not found, please run `npm init` in the directory first to initialize npm project.");
+    exit(1);
+}
 
 if (argv._[0] === "init") {
     console.log("Initializing project");
     initProject();
 } else if (argv._[0] === "generate-route") {
-    if (!argv.path || !argv.name || !argv.route) {
-        console.error("Need project path, route for API and name for controller");
+    if (!argv.name || !argv.route) {
+        console.error("Need route for API and name for controller");
         exit(1);
     }
     let type: "Get" | "Post" = "Get";
@@ -48,8 +49,10 @@ if (argv._[0] === "init") {
     } else if (argv.type && argv.type === "Post") {
         type = "Post";
     }
-    console.log("TODO Generating code for route: ", argv.route);
-    generateApiRoute(argv.path, argv.name, argv.route, type);
+    console.log("Generating code for route: ", argv.route);
+    generateApiRoute(argv.name, argv.route, type);
+} else if (argv._[0] === "generate-test-route") {
+    generateApiRoute('test', 'test', 'Get');
 }
 
 function createFolderStructure(path: string, name: string) {
@@ -73,14 +76,10 @@ function createFolderStructure(path: string, name: string) {
 async function initProject() {
     const port = GetRandomInt(8000, 9900);
     try {
-        const path = process.cwd();
-        if (!fs.existsSync(path + '/package.json')) {
-            console.error("package.json file not found, please run `npm init` in the directory first to initialize npm project.");
-            exit(1);
-        }
-        const packageJson = JSON.parse(fs.readFileSync(path + '/package.json', { encoding: 'utf8' }));
+
+        const packageJson = JSON.parse(fs.readFileSync(projectPath + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
-        createFolderStructure(path, name);
+        createFolderStructure(projectPath, name);
         
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
@@ -139,7 +138,7 @@ async function initProject() {
         packageJson.devDependencies["prisma"] = "^4.5.0";
         packageJson.devDependencies["rimraf"] = "^3.0.2";
         
-        fs.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
+        fs.writeFileSync(projectPath + '/package.json', JSON.stringify(packageJson));
         console.log("Installing dependencies ....");
         const childInstall = spawnSync('npm', ['install']);
 
@@ -160,21 +159,21 @@ async function initProject() {
         const eslintignoreTemplate = fs.readFileSync(__dirname + "/../templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const prettierignoreTemplate = fs.readFileSync(__dirname + "/../templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
 
-        fs.writeFileSync(path + '/tsconfig.json', tsconfigTemplate);
-        fs.writeFileSync(path + '/tsoa.json', tsoaTemplate);
-        fs.writeFileSync(path + '/src/app.ts', appTemplate);
-        fs.writeFileSync(path + '/src/ioc.ts', iocTemplate);
-        fs.writeFileSync(path + '/prisma/schema.prisma', prismaTemplate);
-        fs.writeFileSync(path + '/.env', envTemplate);
-        fs.writeFileSync(path + '/src/services/databaseService.ts', databaseServiceTemplate);
-        fs.writeFileSync(path + '/README.md', readmeTemplate);
-        fs.writeFileSync(path + '/cluster.json', clusterTemplate);
-        fs.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
-        fs.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
-        fs.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
-        fs.writeFileSync(path + '/.prettierignore', prettierignoreTemplate);
+        fs.writeFileSync(projectPath + '/tsconfig.json', tsconfigTemplate);
+        fs.writeFileSync(projectPath + '/tsoa.json', tsoaTemplate);
+        fs.writeFileSync(projectPath + '/src/app.ts', appTemplate);
+        fs.writeFileSync(projectPath + '/src/ioc.ts', iocTemplate);
+        fs.writeFileSync(projectPath + '/prisma/schema.prisma', prismaTemplate);
+        fs.writeFileSync(projectPath + '/.env', envTemplate);
+        fs.writeFileSync(projectPath + '/src/services/databaseService.ts', databaseServiceTemplate);
+        fs.writeFileSync(projectPath + '/README.md', readmeTemplate);
+        fs.writeFileSync(projectPath + '/cluster.json', clusterTemplate);
+        fs.writeFileSync(projectPath + '/.eslintrc.json', eslintrcTemplate);
+        fs.writeFileSync(projectPath + '/.prettierrc.json', prettierrcTemplate);
+        fs.writeFileSync(projectPath + '/.eslintignore', eslintignoreTemplate);
+        fs.writeFileSync(projectPath + '/.prettierignore', prettierignoreTemplate);
 
-        fs.openSync(path + '/prisma/dev.db', 'w');
+        fs.openSync(projectPath + '/prisma/dev.db', 'w');
 
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
@@ -187,7 +186,7 @@ async function initProject() {
     console.log('Done!');
 }
 
-function generateApiRoute(projectPath: string, name: string, route: string, type: "Get" | "Post") {
+function generateApiRoute(name: string, route: string, type: "Get" | "Post") {
     try {
         const replaceName = RegExp(/\$\{name\}/, 'g');
         const replaceRoute = RegExp(/\$\{route\}/, 'g');

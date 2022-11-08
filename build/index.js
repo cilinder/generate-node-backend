@@ -8,36 +8,36 @@ const process_1 = require("process");
 const child_process_1 = require("child_process");
 const yargs_1 = __importDefault(require("yargs"));
 const argv = yargs_1.default
-    .option('name', {
-    description: 'The name',
-    alias: 'n',
-    type: 'string'
+    .option("name", {
+    description: "The name",
+    alias: "n",
+    type: "string",
 })
-    .option('route', {
-    alias: 'r',
-    description: 'The API route to be generated',
-    type: 'string'
+    .option("route", {
+    alias: "r",
+    description: "The API route to be generated",
+    type: "string",
 })
-    .option('type', {
-    alias: 't',
-    description: 'Get or Post requst',
-    type: 'string'
-})
-    .option('path', {
-    alias: 'p',
-    description: 'The project path',
-    type: 'string'
+    .option("type", {
+    alias: "t",
+    description: "Get or Post requst",
+    type: "string",
 })
     .help()
-    .alias('help', 'h')
+    .alias("help", "h")
     .parseSync();
+const projectPath = process.cwd();
+if (!fs_1.default.existsSync(projectPath + '/package.json')) {
+    console.error("package.json file not found, please run `npm init` in the directory first to initialize npm project.");
+    (0, process_1.exit)(1);
+}
 if (argv._[0] === "init") {
     console.log("Initializing project");
     initProject();
 }
 else if (argv._[0] === "generate-route") {
-    if (!argv.path || !argv.name || !argv.route) {
-        console.error("Need project path, route for API and name for controller");
+    if (!argv.name || !argv.route) {
+        console.error("Need route for API and name for controller");
         (0, process_1.exit)(1);
     }
     let type = "Get";
@@ -47,8 +47,11 @@ else if (argv._[0] === "generate-route") {
     else if (argv.type && argv.type === "Post") {
         type = "Post";
     }
-    console.log("TODO Generating code for route: ", argv.route);
-    generateApiRoute(argv.path, argv.name, argv.route, type);
+    console.log("Generating code for route: ", argv.route);
+    generateApiRoute(argv.name, argv.route, type);
+}
+else if (argv._[0] === "generate-test-route") {
+    generateApiRoute('test', 'test', 'Get');
 }
 function createFolderStructure(path, name) {
     try {
@@ -71,14 +74,9 @@ function createFolderStructure(path, name) {
 async function initProject() {
     const port = GetRandomInt(8000, 9900);
     try {
-        const path = process.cwd();
-        if (!fs_1.default.existsSync(path + '/package.json')) {
-            console.error("package.json file not found, please run `npm init` in the directory first to initialize npm project.");
-            (0, process_1.exit)(1);
-        }
-        const packageJson = JSON.parse(fs_1.default.readFileSync(path + '/package.json', { encoding: 'utf8' }));
+        const packageJson = JSON.parse(fs_1.default.readFileSync(projectPath + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
-        createFolderStructure(path, name);
+        createFolderStructure(projectPath, name);
         // const git = SimpleGit(path + '/' + name);
         // await git.init();
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
@@ -134,7 +132,7 @@ async function initProject() {
         packageJson.devDependencies["prettier"] = "^2.7.1";
         packageJson.devDependencies["prisma"] = "^4.5.0";
         packageJson.devDependencies["rimraf"] = "^3.0.2";
-        fs_1.default.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
+        fs_1.default.writeFileSync(projectPath + '/package.json', JSON.stringify(packageJson));
         console.log("Installing dependencies ....");
         const childInstall = (0, child_process_1.spawnSync)('npm', ['install']);
         const replaceName = new RegExp(/\$\{name\}/, 'g');
@@ -152,20 +150,20 @@ async function initProject() {
         const prettierrcTemplate = fs_1.default.readFileSync(__dirname + "/../templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const eslintignoreTemplate = fs_1.default.readFileSync(__dirname + "/../templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
         const prettierignoreTemplate = fs_1.default.readFileSync(__dirname + "/../templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        fs_1.default.writeFileSync(path + '/tsconfig.json', tsconfigTemplate);
-        fs_1.default.writeFileSync(path + '/tsoa.json', tsoaTemplate);
-        fs_1.default.writeFileSync(path + '/src/app.ts', appTemplate);
-        fs_1.default.writeFileSync(path + '/src/ioc.ts', iocTemplate);
-        fs_1.default.writeFileSync(path + '/prisma/schema.prisma', prismaTemplate);
-        fs_1.default.writeFileSync(path + '/.env', envTemplate);
-        fs_1.default.writeFileSync(path + '/src/services/databaseService.ts', databaseServiceTemplate);
-        fs_1.default.writeFileSync(path + '/README.md', readmeTemplate);
-        fs_1.default.writeFileSync(path + '/cluster.json', clusterTemplate);
-        fs_1.default.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
-        fs_1.default.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
-        fs_1.default.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
-        fs_1.default.writeFileSync(path + '/.prettierignore', prettierignoreTemplate);
-        fs_1.default.openSync(path + '/prisma/dev.db', 'w');
+        fs_1.default.writeFileSync(projectPath + '/tsconfig.json', tsconfigTemplate);
+        fs_1.default.writeFileSync(projectPath + '/tsoa.json', tsoaTemplate);
+        fs_1.default.writeFileSync(projectPath + '/src/app.ts', appTemplate);
+        fs_1.default.writeFileSync(projectPath + '/src/ioc.ts', iocTemplate);
+        fs_1.default.writeFileSync(projectPath + '/prisma/schema.prisma', prismaTemplate);
+        fs_1.default.writeFileSync(projectPath + '/.env', envTemplate);
+        fs_1.default.writeFileSync(projectPath + '/src/services/databaseService.ts', databaseServiceTemplate);
+        fs_1.default.writeFileSync(projectPath + '/README.md', readmeTemplate);
+        fs_1.default.writeFileSync(projectPath + '/cluster.json', clusterTemplate);
+        fs_1.default.writeFileSync(projectPath + '/.eslintrc.json', eslintrcTemplate);
+        fs_1.default.writeFileSync(projectPath + '/.prettierrc.json', prettierrcTemplate);
+        fs_1.default.writeFileSync(projectPath + '/.eslintignore', eslintignoreTemplate);
+        fs_1.default.writeFileSync(projectPath + '/.prettierignore', prettierignoreTemplate);
+        fs_1.default.openSync(projectPath + '/prisma/dev.db', 'w');
         // Git stuff
         // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
         // await git.commit(`Initializing project ${name}.\n\nUsing nodejs + express + tsoa + prisma`);
@@ -175,7 +173,7 @@ async function initProject() {
     }
     console.log('Done!');
 }
-function generateApiRoute(projectPath, name, route, type) {
+function generateApiRoute(name, route, type) {
     try {
         const replaceName = RegExp(/\$\{name\}/, 'g');
         const replaceRoute = RegExp(/\$\{route\}/, 'g');

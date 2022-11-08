@@ -1,4 +1,4 @@
-# generate-node-project
+# generate-node-backend
 Simple nodejs program to generate a nodejs backend
 
 ## Usage

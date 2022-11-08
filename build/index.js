@@ -84,54 +84,48 @@ async function initProject() {
         // await git.init();
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         // fs.writeFileSync(path + '/.gitignore', gitignoreTemplate);
-        packageJson.scripts = {
-            "build": "rimraf dist/* && tsoa spec-and-routes && tsc",
-            "dev": "npm run build && nodemon src/app.ts",
-            "tsoa-gen": "tsoa routes && tsoa swagger",
-            "tsoa-swagger": "tsoa swagger",
-            "lint": "eslint . --ext .ts",
-            "lint-and-fix": "eslint . --ext .ts --fix",
-            "prettier-check": "npx prettier --check src",
-            "prettier-fix": "npx prettier --write src",
-            "pm2": "pm2",
-            "start": "pm2 start cluster.json",
-            "stop": "pm2 kill",
-            "monit": "pm2 monit",
-            "update-db-schema": "npx prisma db push && npx prisma generate"
-        };
+        packageJson.scripts["build"] = "rimraf dist/* && tsoa spec-and-routes && tsc";
+        packageJson.scripts["dev"] = "npm run build && nodemon src/app.ts";
+        packageJson.scripts["tsoa-gen"] = "tsoa routes && tsoa swagger";
+        packageJson.scripts["tsoa-swagger"] = "tsoa swagger";
+        packageJson.scripts["lint"] = "eslint . --ext .ts";
+        packageJson.scripts["lint-and-fix"] = "eslint . --ext .ts --fix";
+        packageJson.scripts["prettier-check"] = "npx prettier --check src";
+        packageJson.scripts["prettier-fix"] = "npx prettier --write src";
+        packageJson.scripts["pm2"] = "pm2";
+        packageJson.scripts["start"] = "pm2 start cluster.json";
+        packageJson.scripts["stop"] = "pm2 kill";
+        packageJson.scripts["monit"] = "pm2 monit";
+        packageJson.scripts["update-db-schema"] = "npx prisma db push && npx prisma generate";
         packageJson.main = "src/app.ts";
-        packageJson.dependencies = {
-            "@prisma/client": "^4.5.0",
-            "compression": "^1.7.4",
-            "cors": "^2.8.5",
-            "dotenv": "^16.0.3",
-            "esm": "^3.2.25",
-            "express": "^4.18.1",
-            "helmet": "^4.2.0",
-            "nodemon": "^2.0.19",
-            "pm2": "5.2.0",
-            "rxjs": "^7.5.6",
-            "swagger-ui-express": "^4.5.0",
-            "ts-node": "^10.9.1",
-            "tsoa": "^4.1.2",
-            "typescript": "^4.8.3",
-            "typescript-ioc": "^3.2.2"
-        };
-        packageJson.devDependencies = {
-            "@types/compression": "^1.7.2",
-            "@types/cors": "^2.8.12",
-            "@types/express": "^4.17.14",
-            "@types/node": "^18.7.18",
-            "@types/swagger-ui-express": "^4.1.3",
-            "@typescript-eslint/eslint-plugin": "^5.37.0",
-            "@typescript-eslint/parser": "^5.37.0",
-            "eslint": "^8.23.1",
-            "eslint-config-prettier": "^8.5.0",
-            "eslint-plugin-prettier": "^4.0.0",
-            "prettier": "^2.7.1",
-            "prisma": "^4.5.0",
-            "rimraf": "^3.0.2"
-        };
+        packageJson.dependencies["@prisma/client"] = "^4.5.0";
+        packageJson.dependencies["compression"] = "^1.7.4";
+        packageJson.dependencies["cors"] = "^2.8.5";
+        packageJson.dependencies["dotenv"] = "^16.0.3";
+        packageJson.dependencies["esm"] = "^3.2.25";
+        packageJson.dependencies["express"] = "^4.18.1";
+        packageJson.dependencies["helmet"] = "^4.2.0";
+        packageJson.dependencies["nodemon"] = "^2.0.19";
+        packageJson.dependencies["pm2"] = "5.2.0";
+        packageJson.dependencies["rxjs"] = "^7.5.6";
+        packageJson.dependencies["swagger-ui-express"] = "^4.5.0";
+        packageJson.dependencies["ts-node"] = "^10.9.1";
+        packageJson.dependencies["tsoa"] = "^4.1.2";
+        packageJson.dependencies["typescript"] = "^4.8.3";
+        packageJson.dependencies["typescript-ioc"] = "^3.2.2";
+        packageJson.devDependencies["@types/compression"] = "^1.7.2";
+        packageJson.devDependencies["@types/cors"] = "^2.8.12";
+        packageJson.devDependencies["@types/express"] = "^4.17.14";
+        packageJson.devDependencies["@types/node"] = "^18.7.18";
+        packageJson.devDependencies["@types/swagger-ui-express"] = "^4.1.3";
+        packageJson.devDependencies["@typescript-eslint/eslint-plugin"] = "^5.37.0";
+        packageJson.devDependencies["@typescript-eslint/parser"] = "^5.37.0";
+        packageJson.devDependencies["eslint"] = "^8.23.1";
+        packageJson.devDependencies["eslint-config-prettier"] = "^8.5.0";
+        packageJson.devDependencies["eslint-plugin-prettier"] = "^4.0.0";
+        packageJson.devDependencies["prettier"] = "^2.7.1";
+        packageJson.devDependencies["prisma"] = "^4.5.0";
+        packageJson.devDependencies["rimraf"] = "^3.0.2";
         fs_1.default.writeFileSync(path + '/package.json', JSON.stringify(packageJson));
         const childInstall = (0, child_process_1.spawn)('npm', ['install']);
         // const childPrismaClinet = spawn('npm', ['install', 'prisma']);

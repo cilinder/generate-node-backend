@@ -87,35 +87,85 @@ async function initProject() {
         // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
 
-        const childPrismaClinet = spawn('npm', ['install', 'prisma']);
-        const childCompression = spawn('npm', ['install', 'compression']);
-        const childCors = spawn('npm', ['install', 'cors']);
-        const childDotenv = spawn('npm', ['install', 'dotenv']);
-        const childEsm = spawn('npm', ['install', 'esm']);
-        const childExpress = spawn('npm', ['install', 'express']);
-        const childHelmet = spawn('npm', ['install', 'helmet']);
-        const childNodemon = spawn('npm', ['install', 'nodemon']);
-        const childPm2 = spawn('npm', ['install', 'pm2']);
-        const childRxjs = spawn('npm', ['install', 'rxjs']);
-        const childSwaggerUI = spawn('npm', ['install', 'swagger-ui-express']);
-        const childTsNode = spawn('npm', ['install', 'ts-node']);
-        const childTsoa = spawn('npm', ['install', 'tsoa']);
-        const childTypescript = spawn('npm', ['install', 'typescript']);
-        const childTypescriptIoc = spawn('npm', ['install', 'typescript-ioc']);
+        packageJson.scripts = {
+            "build": "rimraf dist/* && tsoa spec-and-routes && tsc",
+            "dev": "npm run build && nodemon src/app.ts",
+            "tsoa-gen": "tsoa routes && tsoa swagger",
+            "tsoa-swagger": "tsoa swagger",
+            "lint": "eslint . --ext .ts",
+            "lint-and-fix": "eslint . --ext .ts --fix",
+            "prettier-check": "npx prettier --check src",
+            "prettier-fix": "npx prettier --write src",
+            "pm2": "pm2",
+            "start": "pm2 start cluster.json",
+            "stop": "pm2 kill",
+            "monit": "pm2 monit",
+            "update-db-schema": "npx prisma db push && npx prisma generate"
+        };
+        packageJson.main = "src/app.ts";
+        packageJson.dependencies = {
+            "@prisma/client": "^4.5.0",
+            "compression": "^1.7.4",
+            "cors": "^2.8.5",
+            "dotenv": "^16.0.3",
+            "esm": "^3.2.25",
+            "express": "^4.18.1",
+            "helmet": "^4.2.0",
+            "nodemon": "^2.0.19",
+            "pm2": "5.2.0",
+            "rxjs": "^7.5.6",
+            "swagger-ui-express": "^4.5.0",
+            "ts-node": "^10.9.1",
+            "tsoa": "^4.1.2",
+            "typescript": "^4.8.3",
+            "typescript-ioc": "^3.2.2"
+        };
+        packageJson.devDependencies = {
+            "@types/compression": "^1.7.2",
+            "@types/cors": "^2.8.12",
+            "@types/express": "^4.17.14",
+            "@types/node": "^18.7.18",
+            "@types/swagger-ui-express": "^4.1.3",
+            "@typescript-eslint/eslint-plugin": "^5.37.0",
+            "@typescript-eslint/parser": "^5.37.0",
+            "eslint": "^8.23.1",
+            "eslint-config-prettier": "^8.5.0",
+            "eslint-plugin-prettier": "^4.0.0",
+            "prettier": "^2.7.1",
+            "prisma": "^4.5.0",
+            "rimraf": "^3.0.2"
+        };
+        const childInstall = spawn('npm', ['install']);
 
-        const childTypesCompression = spawn('npm', ['install', '--save-dev', '@types/compression']);
-        const childTypesCors = spawn('npm', ['install', '--save-dev', '@types/cors']);
-        const childTypesExpress = spawn('npm', ['install', '--save-dev', '@types/express']);
-        const childTypesNode = spawn('npm', ['install', '--save-dev', '@types/node']);
-        const childTypesSwaggerUI = spawn('npm', ['install', '--save-dev', '@types/swagger-ui-express']);
-        const childTypescriptEslintPlugin = spawn('npm', ['install', '--save-dev', '@typescript-eslint/eslint-plugin']);
-        const childTypescriptEslintParser = spawn('npm', ['install', '--save-dev', '@typescript-eslint/parser']);
-        const childEslint = spawn('npm', ['install', '--save-dev', 'eslint']);
-        const childEslintConfigPrettier = spawn('npm', ['install', '--save-dev', 'eslint-config-prettier']);
-        const childEslintPluginPrettier = spawn('npm', ['install', '--save-dev', 'eslint-plugin-prettier']);
-        const childPrettier = spawn('npm', ['install', '--save-dev', 'prettier']);
-        const childPrisma = spawn('npm', ['install', '--save-dev', 'prisma']);
-        const childRimraf = spawn('npm', ['install', '--save-dev', 'rimraf']);
+        // const childPrismaClinet = spawn('npm', ['install', 'prisma']);
+        // const childCompression = spawn('npm', ['install', 'compression']);
+        // const childCors = spawn('npm', ['install', 'cors']);
+        // const childDotenv = spawn('npm', ['install', 'dotenv']);
+        // const childEsm = spawn('npm', ['install', 'esm']);
+        // const childExpress = spawn('npm', ['install', 'express']);
+        // const childHelmet = spawn('npm', ['install', 'helmet']);
+        // const childNodemon = spawn('npm', ['install', 'nodemon']);
+        // const childPm2 = spawn('npm', ['install', 'pm2']);
+        // const childRxjs = spawn('npm', ['install', 'rxjs']);
+        // const childSwaggerUI = spawn('npm', ['install', 'swagger-ui-express']);
+        // const childTsNode = spawn('npm', ['install', 'ts-node']);
+        // const childTsoa = spawn('npm', ['install', 'tsoa']);
+        // const childTypescript = spawn('npm', ['install', 'typescript']);
+        // const childTypescriptIoc = spawn('npm', ['install', 'typescript-ioc']);
+
+        // const childTypesCompression = spawn('npm', ['install', '--save-dev', '@types/compression']);
+        // const childTypesCors = spawn('npm', ['install', '--save-dev', '@types/cors']);
+        // const childTypesExpress = spawn('npm', ['install', '--save-dev', '@types/express']);
+        // const childTypesNode = spawn('npm', ['install', '--save-dev', '@types/node']);
+        // const childTypesSwaggerUI = spawn('npm', ['install', '--save-dev', '@types/swagger-ui-express']);
+        // const childTypescriptEslintPlugin = spawn('npm', ['install', '--save-dev', '@typescript-eslint/eslint-plugin']);
+        // const childTypescriptEslintParser = spawn('npm', ['install', '--save-dev', '@typescript-eslint/parser']);
+        // const childEslint = spawn('npm', ['install', '--save-dev', 'eslint']);
+        // const childEslintConfigPrettier = spawn('npm', ['install', '--save-dev', 'eslint-config-prettier']);
+        // const childEslintPluginPrettier = spawn('npm', ['install', '--save-dev', 'eslint-plugin-prettier']);
+        // const childPrettier = spawn('npm', ['install', '--save-dev', 'prettier']);
+        // const childPrisma = spawn('npm', ['install', '--save-dev', 'prisma']);
+        // const childRimraf = spawn('npm', ['install', '--save-dev', 'rimraf']);
 
         const replaceName = new RegExp(/\$\{name\}/, 'g');
         const replacePort = new RegExp(/\$\{port\}/, 'g');

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Project to generate a backend nodejs project template",
   "main": "src/index.ts",
+  "bin": "bin/generate-node-backend",
   "scripts": {
     "test": "test",
     "build": "npx tsc",

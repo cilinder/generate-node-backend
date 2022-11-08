@@ -79,8 +79,6 @@ function createFolderStructure(path: string, name: string) {
             console.error("Folder already exists!");
             exit();
         } else {
-
-
             fs.mkdirSync(path + '/' + name);
             fs.mkdirSync(path + '/' + name + '/src');
             fs.mkdirSync(path + '/' + name + '/src/constants');
@@ -103,21 +101,20 @@ async function initProject(path: string, name: string, port: number) {
     createFolderStructure(path, name);
     // const git = SimpleGit(path + '/' + name);
     // await git.init();
-
     try {
         const replaceName = new RegExp(/\$\{name\}/, 'g');
         const replacePort = new RegExp(/\$\{port\}/, 'g');
 
         const packageJsonTemplate = fs.readFileSync("./templates/package.json.template", { encoding: 'utf8' }).replaceAll(replaceName, name);
-        const tsconfigTemplate = fs.readFileSync("./templates/tsconfig.json.template", { encoding: 'utf8' });
-        const tsoaTemplate = fs.readFileSync("./templates/tsoa.json.template", { encoding: 'utf8' });
+        const tsconfigTemplate = fs.readFileSync("./templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const tsoaTemplate = fs.readFileSync("./templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const appTemplate = fs.readFileSync("./templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const iocTemplate = fs.readFileSync("./templates/ioc.ts.template", { encoding: 'utf8' });
-        const prismaTemplate = fs.readFileSync("./templates/schema.prisma.template", { encoding: 'utf8' });
+        const iocTemplate = fs.readFileSync("./templates/ioc.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const prismaTemplate = fs.readFileSync("./templates/schema.prisma.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const envTemplate = fs.readFileSync("./templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' });
+        const databaseServiceTemplate = fs.readFileSync("./templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const readmeTemplate = fs.readFileSync("./templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' });
+        // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
         const clusterTemplate = fs.readFileSync("./templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);;
 
         fs.writeFileSync(path + '/' + name + '/package.json', packageJsonTemplate);
@@ -130,7 +127,7 @@ async function initProject(path: string, name: string, port: number) {
         fs.writeFileSync(path + '/' + name + '/src/services/databaseService.ts', databaseServiceTemplate);
         fs.writeFileSync(path + '/' + name + '/README.md', readmeTemplate);
         // fs.writeFileSync(path + '/' + name + '/.gitignore', gitignoreTemplate);
-        fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);        
+        fs.writeFileSync(path + '/' + name + '/cluster.json', clusterTemplate);
 
         fs.openSync(path + '/' + name + '/prisma/dev.db', 'w');
 

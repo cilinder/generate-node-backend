@@ -54,23 +54,17 @@ if (argv._[0] === "init") {
 
 function createFolderStructure(path: string, name: string) {
     try {
-        if (fs.existsSync(path + '/' + name)) {
-            console.error("Folder already exists!");
-            exit();
-        } else {
-            fs.mkdirSync(path + '/' + name);
-            fs.mkdirSync(path + '/' + name + '/src');
-            fs.mkdirSync(path + '/' + name + '/src/constants');
-            fs.mkdirSync(path + '/' + name + '/src/controllers');
-            fs.mkdirSync(path + '/' + name + '/src/engines');
-            fs.mkdirSync(path + '/' + name + '/src/services');
-            fs.mkdirSync(path + '/' + name + '/src/types');
-            fs.mkdirSync(path + '/' + name + '/build');
-            fs.mkdirSync(path + '/' + name + '/dist');
-            fs.mkdirSync(path + '/' + name + '/scripts');
-            fs.mkdirSync(path + '/' + name + '/static');
-            fs.mkdirSync(path + '/' + name + '/prisma');
-        }
+        fs.mkdirSync(path + '/' + name + '/src');
+        fs.mkdirSync(path + '/' + name + '/src/constants');
+        fs.mkdirSync(path + '/' + name + '/src/controllers');
+        fs.mkdirSync(path + '/' + name + '/src/engines');
+        fs.mkdirSync(path + '/' + name + '/src/services');
+        fs.mkdirSync(path + '/' + name + '/src/types');
+        fs.mkdirSync(path + '/' + name + '/build');
+        fs.mkdirSync(path + '/' + name + '/dist');
+        fs.mkdirSync(path + '/' + name + '/scripts');
+        fs.mkdirSync(path + '/' + name + '/static');
+        fs.mkdirSync(path + '/' + name + '/prisma');
     } catch (e) {
         console.error(e);
     }

@@ -179,19 +179,19 @@ async function initProject() {
 
         console.log(__dirname);
 
-        const tsconfigTemplate = fs.readFileSync(__dirname + "../templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const tsoaTemplate = fs.readFileSync(__dirname + "../templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const appTemplate = fs.readFileSync(__dirname + "../templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const iocTemplate = fs.readFileSync(__dirname + "../templates/ioc.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const prismaTemplate = fs.readFileSync(__dirname + "../templates/schema.prisma.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const envTemplate = fs.readFileSync(__dirname + "../templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const databaseServiceTemplate = fs.readFileSync(__dirname + "../templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        const readmeTemplate = fs.readFileSync(__dirname + "../templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const clusterTemplate = fs.readFileSync(__dirname + "../templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const eslintrcTemplate = fs.readFileSync(__dirname + "../templates/.eslintrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const prettierrcTemplate = fs.readFileSync(__dirname + "../templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const eslintignoreTemplate = fs.readFileSync(__dirname + "../templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
-        const prettierignoreTemplate = fs.readFileSync(__dirname + "../templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const tsconfigTemplate = fs.readFileSync(__dirname + "/../templates/tsconfig.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const tsoaTemplate = fs.readFileSync(__dirname + "/../templates/tsoa.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const appTemplate = fs.readFileSync(__dirname + "/../templates/app.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const iocTemplate = fs.readFileSync(__dirname + "/../templates/ioc.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const prismaTemplate = fs.readFileSync(__dirname + "/../templates/schema.prisma.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const envTemplate = fs.readFileSync(__dirname + "/../templates/.env.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const databaseServiceTemplate = fs.readFileSync(__dirname + "/../templates/databaseService.ts.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+        const readmeTemplate = fs.readFileSync(__dirname + "/../templates/README.md.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const clusterTemplate = fs.readFileSync(__dirname + "/../templates/cluster.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintrcTemplate = fs.readFileSync(__dirname + "/../templates/.eslintrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierrcTemplate = fs.readFileSync(__dirname + "/../templates/.prettierrc.json.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const eslintignoreTemplate = fs.readFileSync(__dirname + "/../templates/.eslintignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
+        const prettierignoreTemplate = fs.readFileSync(__dirname + "/../templates/.prettierignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString()).replaceAll(replaceName, name);
 
         fs.writeFileSync(path + '/tsconfig.json', tsconfigTemplate);
         fs.writeFileSync(path + '/tsoa.json', tsoaTemplate);

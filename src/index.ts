@@ -205,7 +205,7 @@ async function initProject() {
         fs.writeFileSync(path + '/.eslintrc.json', eslintrcTemplate);
         fs.writeFileSync(path + '/.prettierrc.json', prettierrcTemplate);
         fs.writeFileSync(path + '/.eslintignore', eslintignoreTemplate);
-        fs.writeFileSync(path + '/.prettierignore.json', prettierignoreTemplate);
+        fs.writeFileSync(path + '/.prettierignore', prettierignoreTemplate);
 
         fs.openSync(path + '/prisma/dev.db', 'w');
 

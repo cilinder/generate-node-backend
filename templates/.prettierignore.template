@@ -1,6 +1,5 @@
 # Ignore artifacts:
 build
 dist
-package.json
 package-lock.json
 ioc.ts

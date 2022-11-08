@@ -195,6 +195,7 @@ function generateApiRoute(name, route, type) {
             .replaceAll(replaceEngineName, capitalize(engineName));
         fs_1.default.writeFileSync(projectPath + '/src/controllers/' + controllerName + '.ts', controllerTemplate);
         fs_1.default.writeFileSync(projectPath + '/src/engines/' + engineName + '.ts', engineTemplate);
+        console.log('Done!');
     }
     catch (e) {
         console.error(e);

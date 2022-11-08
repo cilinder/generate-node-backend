@@ -212,7 +212,7 @@ function generateApiRoute(name: string, route: string, type: "Get" | "Post") {
 
         fs.writeFileSync(projectPath + '/src/controllers/' + controllerName + '.ts', controllerTemplate);
         fs.writeFileSync(projectPath + '/src/engines/' + engineName + '.ts', engineTemplate);
-
+        console.log('Done!');
     } catch (e) {
         console.error(e);
     }

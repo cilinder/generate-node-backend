@@ -1,6 +1,6 @@
 {
-  "name": "generate-node-backend",
-  "version": "0.1.0",
+  "name": "@cilinder/generate-node-backend",
+  "version": "1.0.0",
   "description": "Project to generate a backend nodejs project template",
   "main": "src/index.ts",
   "bin": {
@@ -18,7 +18,12 @@
     "nodejs",
     "template"
   ],
-  "author": "Jure Taslak",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cilinder/generate-node-backend"
+  },
+  "homepage": "https://github.com/cilinder/generate-node-backend#readme",
+  "author": "cilinder",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.9",

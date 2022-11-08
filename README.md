@@ -3,36 +3,31 @@ Simple nodejs program to generate a nodejs backend
 
 ## Usage
 
-First download the project
+First initialize package.json
 ```
-git clone https://github.com/cilinder/generate-node-project.git
+npm init
 ```
-or
-```
-git clone git@github.com:cilinder/generate-node-project.git
-```
+After answering the questions, install the package
 
 ```
-cd generate-node-project
+npm install @cilinder/generate-node-backend
 ```
 
-Install dependencies
+Initialize the project
 
 ```
-npm install
+npx generate-node-backend init
 ```
 
-Generate a new nodejs project template
+Create a test route
 
 ```
-npm run init -- --path=<path where to create project> --name=<name of project>
+npx generate-node-backend generate-test-route
 ```
-
-**Note the extra "--" before the arguments!** This is becasue of how npm passes arguments to node, it won't work without it.
 
 Generate an API route and all the associated code
 
 ```
-npm run generate-route -- --path=<path to project> --name=<name of the controller generated> --route=<the route for the API> --type=<"Get" or "Post">
+npx generate-node-backend generate-route --name=<name of the controller generated> --route=<the route for the API> --type=<"Get" or "Post">
 ```
 

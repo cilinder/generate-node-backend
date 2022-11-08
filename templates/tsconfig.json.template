@@ -7,11 +7,11 @@
     "module": "commonjs",                                /* Specify what module code is generated. */
 
     /* JavaScript Support */
-    "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
-    "resolveJsonModule": true,
+    "allowJs": true,                                     /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
+    "resolveJsonModule": true,                           /* Allows importing modules with a '.json' extension. */
 
     /* Emit */
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "outDir": "./dist",                                  /* Specify an output folder for all emitted files. */
 
     /* Interop Constraints */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
@@ -19,12 +19,12 @@
 
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied 'any' type. */
 
     /* Completeness */
-    "experimentalDecorators": true,
-    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-    "noFallthroughCasesInSwitch": true,
-    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,                      /* Enables experimental support for decorators, NEED THIS FOR TSOA. */
+    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
+    "noFallthroughCasesInSwitch": true,                  /* Report errors for fallthrough cases in switch statements. */
+    "emitDecoratorMetadata": true,                       /* Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata. */
   }
 }

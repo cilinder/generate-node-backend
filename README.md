@@ -3,7 +3,9 @@ Simple nodejs program to generate a nodejs backend
 
 ## Usage
 
-First initialize package.json
+First install [nodejs](https://nodejs.org/en/)
+
+Initialize package.json
 ```
 npm init
 ```

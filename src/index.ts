@@ -175,7 +175,7 @@ async function initProject() {
         if (!fs.existsSync(projectPath + '/.git')) {
             const git = SimpleGit(projectPath);
             await git.init();
-            const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+            const gitignoreTemplate = fs.readFileSync("/../templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
             fs.writeFileSync(projectPath + '/.gitignore', gitignoreTemplate);
             await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
             await git.commit(`Initializing project ${name}.\n\nUsing nodejs + express + tsoa + prisma`);

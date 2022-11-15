@@ -8,10 +8,7 @@
   },
   "scripts": {
     "test": "test",
-    "build": "npx tsc",
-    "init": "node build/index.js init",
-    "generate-test-route": "npm run build && node build/index.js generate-route --name=test --route=test",
-    "generate-route": "npm run build && node build/index.js generate-route"
+    "build": "npx tsc"
   },
   "keywords": [
     "generate",

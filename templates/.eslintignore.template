@@ -4,4 +4,3 @@ build
 package-lock.json
 package.json
 ioc.ts
-.env

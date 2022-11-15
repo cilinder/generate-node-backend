@@ -3,3 +3,6 @@ dist
 build
 
 prisma/dev.db
+
+# Never commit the .env file
+.env

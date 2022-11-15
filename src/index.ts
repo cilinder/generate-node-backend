@@ -134,7 +134,7 @@ async function initProject() {
         packageJson.devDependencies["prisma"] = "^4.5.0";
         packageJson.devDependencies["rimraf"] = "^3.0.2";
         
-        fs.writeFileSync(projectPath + '/package.json', JSON.stringify(packageJson));
+        fs.writeFileSync(projectPath + '/package.json', JSON.stringify(packageJson, null, 2));
         console.log("Installing dependencies ....");
         const childInstall = spawnSync('npm', ['install']);
 
@@ -173,7 +173,7 @@ async function initProject() {
 
         // Git stuff, check if folder already has a .git folder otherwise initialize git in the folder
         if (!fs.existsSync(projectPath + '/.git')) {
-            const git = SimpleGit(projectPath + '/' + name);
+            const git = SimpleGit(projectPath);
             await git.init();
             const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
             fs.writeFileSync(projectPath + '/.gitignore', gitignoreTemplate);

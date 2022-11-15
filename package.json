@@ -1,6 +1,6 @@
 {
   "name": "@cilinder/generate-node-backend",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Project to generate a backend nodejs project template",
   "main": "src/index.ts",
   "bin": {

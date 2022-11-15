@@ -80,11 +80,7 @@ async function initProject() {
         const packageJson = JSON.parse(fs.readFileSync(projectPath + '/package.json', { encoding: 'utf8' }));
         const name = packageJson.name;
         createFolderStructure(projectPath, name);
-        
-        // const git = SimpleGit(path + '/' + name);
-        // await git.init();
-        // const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
-        // fs.writeFileSync(path + '/.gitignore', gitignoreTemplate);
+
         if (packageJson["scripts"] === undefined) {
             packageJson["scripts"] = {};
         }
@@ -175,9 +171,15 @@ async function initProject() {
 
         fs.openSync(projectPath + '/prisma/dev.db', 'w');
 
-        // Git stuff
-        // await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
-        // await git.commit(`Initializing project ${name}.\n\nUsing nodejs + express + tsoa + prisma`);
+        // Git stuff, check if folder already has a .git folder otherwise initialize git in the folder
+        if (!fs.existsSync(projectPath + '/.git')) {
+            const git = SimpleGit(projectPath + '/' + name);
+            await git.init();
+            const gitignoreTemplate = fs.readFileSync("./templates/.gitignore.template", { encoding: 'utf8' }).replaceAll(replacePort, port.toString());
+            fs.writeFileSync(projectPath + '/.gitignore', gitignoreTemplate);
+            await git.add(["package.json", "tsconfig.json", "tsoa.json", "src/", "scripts/", "prisma/", "static/", ".gitignore"]);
+            await git.commit(`Initializing project ${name}.\n\nUsing nodejs + express + tsoa + prisma`);
+        }
 
     } catch (e) {
         console.error(e);

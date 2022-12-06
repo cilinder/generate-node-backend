@@ -25,6 +25,6 @@
     "experimentalDecorators": true,                      /* Enables experimental support for decorators, NEED THIS FOR TSOA. */
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "noFallthroughCasesInSwitch": true,                  /* Report errors for fallthrough cases in switch statements. */
-    "emitDecoratorMetadata": true,                       /* Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata. */
+    "emitDecoratorMetadata": true                       /* Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata. */
   }
 }

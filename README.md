@@ -12,7 +12,7 @@ npm init
 After answering the questions, install the package
 
 ```
-npm install @cilinder/generate-node-backend
+npm install @cilinder/generate-node-backend --save-dev
 ```
 
 Initialize the project

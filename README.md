@@ -1,9 +1,9 @@
 # generate-node-backend
-Simple nodejs program to generate a nodejs backend
+Simple Node.js program to generate a backend using Node.js, [Express](https://expressjs.com/), [Prisma](https://www.prisma.io/), [TSOA](https://tsoa-community.github.io/docs/).
 
 ## Usage
 
-First install [nodejs](https://nodejs.org/en/)
+First install [Node.js](https://nodejs.org/en/)
 
 Initialize package.json
 ```
@@ -30,8 +30,10 @@ npx gnb generate-test-route
 Generate an API route and all the associated code
 
 ```
-npx gnb generate-route --name=<name of the controller generated> --route=<the route for the API> --type=<"Get" or "Post">
+npx gnb generate-route <name of the controller generated> <the route for the API> <"Get" or "Post">
 ```
+
+You can use the `dry-run` option with any command to see the files it would generate without writing anything to disk.
 
 ## Generate a test route and view the Swagger GUI
 

@@ -1,7 +1,7 @@
 {
   "name": "@cilinder/generate-node-backend",
   "version": "1.3.11",
-  "description": "Project to generate a backend nodejs project template https://www.npmjs.com/package/@cilinder/generate-node-backend",
+  "description": "Project to generate a backend nodejs project template",
   "main": "src/index.ts",
   "bin": {
     "gnb": "./bin/generate-node-backend"
@@ -21,6 +21,10 @@
     "url": "https://github.com/cilinder/generate-node-backend"
   },
   "homepage": "https://github.com/cilinder/generate-node-backend#readme",
+  "bugs": {
+    "url": "https://github.com/cilinder/generate-node-backend/project/issues",
+    "email": "generate-node-backend@gmail.com"
+  },
   "author": "cilinder",
   "license": "MIT",
   "devDependencies": {

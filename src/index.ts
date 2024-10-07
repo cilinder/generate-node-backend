@@ -1,9 +1,6 @@
-import { executionAsyncResource } from "async_hooks";
-import fs, { read } from "fs";
+import fs from "fs";
 import { exit } from "process";
-import readline from "readline";
-import { spawn, spawnSync } from 'child_process';
-import os from 'os';
+import { spawnSync } from 'child_process';
 
 
 import yargs from 'yargs';
@@ -156,6 +153,9 @@ async function initProject(dryRun = false) {
         console.log("Installing dependencies ....");
         if (!dryRun) {
             const childInstall = spawnSync('npm', ['install']);
+            if (childInstall.status !== 0) {
+                throw new Error(childInstall.output.toString());
+            }
         }
 
         const replaceName = new RegExp(/\$\{name\}/, 'g');
@@ -225,7 +225,8 @@ async function initProject(dryRun = false) {
             console.log('\x1b[43mThe command was run in dry-run mode, no files were written to disk.\x1b[0m');
         }
     } catch (e) {
-        console.error('Initialization failed\n', e);
+        console.error('\x1b[31mInitialization failed\x1b[0m');
+        throw e;
     }
 
 }
